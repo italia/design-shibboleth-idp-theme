@@ -21,8 +21,27 @@ Considerando `idp.home` (solitamente /opt/shibboleth-idp) come path di installaz
 - Effettuare il rebuild del file WAR tramite linea di comando (```idp.home/bin/build.sh``` o ```idp.home\bin\build.bat```);
 - Riavviare il web server (tomcat, jetty o altro servlet container).
 
-Personalizzazione
------------------
+Gestione Shibboleth messages
+----------------------------
+
+Le stringhe contenute in ```idp.home\system\messages\messages.properties```
+possono essere personalizzate e incluse nel codice dei template.
+
+Esempio di modifica del logo (location: ```idp.home\views\bi_header_wrapper.vm```):
+
+```
+<!--
+Use Shibboleth logo (in idp.home\edit-webapp\images)
+<img src="$request.getContextPath()#springMessage("idp.logo")"
+     alt="#springMessageText("idp.logo.alt-text", "logo")">
+-->
+<svg class="icon">
+    <use xlink:href="$request.getContextPath()/bootstrap-italia/svg/sprite.svg#it-expand"></use>
+</svg>
+```
+
+Custom template
+---------------
 
 E' possibile personalizzare il template di base adeguandolo allo stile della propria organizzazione.
 

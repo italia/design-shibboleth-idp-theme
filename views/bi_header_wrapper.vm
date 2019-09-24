@@ -17,8 +17,17 @@
                                    aria-expanded="false"
                                    aria-controls="menu-principale">
                                     <span>
+                                        <!--
+                                        Use Shibboleth organization name
+                                        $request.getContextPath()#springMessage("root.title")
+                                        -->
                                         Nome Ente/Organizzazione
                                     </span>
+                                    <!--
+                                    Use Shibboleth logo
+                                    <img src="$request.getContextPath()#springMessage("idp.logo")"
+                                         alt="#springMessageText("idp.logo.alt-text", "logo")">
+                                    -->
                                     <svg class="icon">
                                         <use xlink:href="$request.getContextPath()/bootstrap-italia/svg/sprite.svg#it-expand"></use>
                                     </svg>

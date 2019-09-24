@@ -7,6 +7,11 @@
                     <div class="col-sm-12">
                         <div class="it-brand-wrapper">
                             <a href="#">
+                                <!--
+                                Use Shibboleth logo
+                                <img src="$request.getContextPath()#springMessage("idp.logo")"
+                                     alt="#springMessageText("idp.logo.alt-text", "logo")">
+                                -->
                                 <svg class="icon">
                                     <use xlink:href="$request.getContextPath()/bootstrap-italia/svg/sprite.svg#it-code-circle"></use>
                                 </svg>
