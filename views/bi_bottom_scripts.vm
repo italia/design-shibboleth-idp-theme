@@ -1,0 +1,2 @@
+<script>window.__PUBLIC_PATH__ = "$request.getContextPath()/bootstrap-italia/fonts"</script>
+<script src="$request.getContextPath()/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>

@@ -1,0 +1,71 @@
+##
+## Velocity Template for SPNEGO unauthorized page
+##
+## This is not a Spring Webflow view, but a special view internal to the
+## SPNEGO login flow, so it doesn't contain all of the usual SWF variables.
+##
+## Velocity context will contain the following properties
+## encoder - HTMLEncoder class
+## request - HttpServletRequest
+## response - HttpServletResponse
+## profileRequestContext - root of context tree
+## errorUrl - URL to call to indicate error and return back to the login flow
+##
+#set ($eventKey = $springMacroRequestContext.getMessage("SPNEGOUnavailable", "spnego-unavailable"))
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <!-- Page details -->
+        <title>
+            #springMessageText("idp.title", "Web Login Sevice") -
+            #springMessageText("${eventKey}.title", "Error")
+        </title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="$request.getContextPath()/bootstrap-italia/css/bootstrap-italia.min.css">
+        <link rel="stylesheet" href="$request.getContextPath()/bootstrap-italia/css/custom.css">
+        <!-- Extra CSS/Javascript -->
+    </head>
+
+    <body>
+        <!-- Bootstrap Italia header wrapper -->
+        #parse("bi_header_wrapper.vm")
+
+        <div class="main-body">
+            <div class="container">
+                <h2 class="mt-5 px-4 px-md-0">
+                    #springMessageText("idp.title", "Web Login Sevice") -
+                    #springMessageText("${eventKey}.title", "Error")
+                </h2>
+                <div class="content my-5">
+                    #springMessageText("${eventKey}.message",
+                                       "Your web browser doesn't support
+                                       authentication with your desktop
+                                       login credentials.")
+                    <ul class="list list-help">
+                        <li class="list-help-item">
+                            <a href="$errorUrl">
+                                <span class="item-marker">&rsaquo;</span>
+                                #springMessageText("spnego-unavailable.return",
+                                                   "Cancel the attempt.")
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- If SAML logout, complete the flow by adding a hidden iframe. -->
+        #if ( $profileRequestContext.getProfileId().contains("saml2/logout") )
+            <iframe style="display:none" src="$flowExecutionUrl&_eventId=proceed"></iframe>
+        #end
+
+        <!-- Bootstrap Italia footer -->
+        #parse("bi_footer.vm")
+
+        <!-- Bootstrap Italia bottom scripts -->
+        #parse("bi_bottom_scripts.vm")
+    </body>
+</html>
