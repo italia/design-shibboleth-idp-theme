@@ -15,8 +15,17 @@ i componenti grafici messi a disposizione.
 Installazione
 -------------
 
-Considerando `idp.home` (solitamente /opt/shibboleth-idp) come path di installazione di *shibboleth-idp*, seguire i seguenti passaggi_
+Considerando `idp.home` (solitamente /opt/shibboleth-idp) come path di installazione di *shibboleth-idp*, seguire i seguenti passaggi:
 
 - Copiare le cartelle ```edit-webapp``` (file statici) e ```views``` (template) in ```idp.home```;
 - Effettuare il rebuild del file WAR tramite linea di comando (```idp.home/bin/build.sh``` o ```idp.home\bin\build.bat```);
 - Riavviare il web server (tomcat, jetty o altro servlet container).
+
+Galleria
+--------
+
+![Login](data/gallery/login.png)
+_Login_
+
+![Agreement](data/gallery/agreement.png)
+_Agreement_
