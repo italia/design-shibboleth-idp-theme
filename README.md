@@ -21,6 +21,18 @@ Considerando `idp.home` (solitamente /opt/shibboleth-idp) come path di installaz
 - Effettuare il rebuild del file WAR tramite linea di comando (```idp.home/bin/build.sh``` o ```idp.home\bin\build.bat```);
 - Riavviare il web server (tomcat, jetty o altro servlet container).
 
+Personalizzazione
+-----------------
+
+E' possibile personalizzare il template di base adeguandolo allo stile della propria organizzazione.
+
+Esempio (stile per l'Università della Calabria):
+
+- In ```edit-webapp``` è presente la cartella ```unical-style```
+- Includere ```<link rel="stylesheet" href="$request.getContextPath()/unical-style/css/unical-style.css">``` a valle dei fogli di stile
+- Effettuare il rebuild del file WAR tramite linea di comando (```idp.home/bin/build.sh``` o ```idp.home\bin\build.bat```);
+- Riavviare il web server (tomcat, jetty o altro servlet container).
+
 Galleria
 --------
 
@@ -29,3 +41,6 @@ _Login_
 
 ![Agreement](data/gallery/agreement.png)
 _Agreement_
+
+![Custom Login](data/gallery/custom_login.png)
+_Custom Login_
