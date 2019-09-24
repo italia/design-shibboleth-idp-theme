@@ -1,0 +1,107 @@
+##
+## Velocity Template for expiring password view
+##
+## Velocity context will contain the following properties
+## flowExecutionUrl - the form action location
+## flowRequestContext - the Spring Web Flow RequestContext
+## flowExecutionKey - the SWF execution key (this is built into the flowExecutionUrl)
+## profileRequestContext - root of context tree
+## rpUIContext - the context with SP UI information from the metadata
+## encoder - HTMLEncoder class
+## request - HttpServletRequest
+## response - HttpServletResponse
+## environment - Spring Environment object for property resolution
+## custom - arbitrary object injected by deployer
+##
+#set ($rpContext = $profileRequestContext.getSubcontext('net.shibboleth.idp.profile.context.RelyingPartyContext'))
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <!-- Page details -->
+        <title>#springMessageText("idp.title", "Web Login Service")</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="$request.getContextPath()/bootstrap-italia/css/bootstrap-italia.min.css">
+        <link rel="stylesheet" href="$request.getContextPath()/bootstrap-italia/css/custom.css">
+        <!-- Extra CSS/Javascript -->
+    </head>
+
+    <body>
+        <!-- Bootstrap Italia header wrapper -->
+        #parse("bi_header_wrapper.vm")
+
+        <div class="main-body">
+            <div class="container">
+                <div class="my-5">
+                    <form action="$flowExecutionUrl" method="post">
+
+                        #set ($serviceName = $rpUIContext.serviceName)
+                        #if ($serviceName && !$rpContext.getRelyingPartyId().contains($serviceName))
+                        <legend>
+                            $encoder.encodeForHTML($serviceName)
+                        </legend>
+                        #end
+
+                        <legend>
+                            #springMessageText("idp.impersonate.text",
+                                               "Enter an account name to
+                                               impersonate to this service
+                                               or continue normally.")
+                        </legend>
+
+                        <div class="form-element-wrapper">
+                            <label for="impersonation">
+                                #springMessageText("idp.impersonate.login-as",
+                                                   "Login as")
+                            </label>
+                            <input class="form-element form-field" id="impersonation" name="principal" type="text">
+
+                            <!-- Defaults to input box above, example below populates a select list from an IdPAttribute. -->
+                            <!--
+                            #set ($attributeContext = $rpContext.getSubcontext('net.shibboleth.idp.attribute.context.AttributeContext'))
+                            #set ($usernamesAttribute = $attributeContext.getUnfilteredIdPAttributes().get("impersonatableUsernames"))
+                            <select class="form-element form-field"
+                                    id="impersonation" n
+                                    ame="principal">
+                                #if ($usernamesAttribute)
+                                    #foreach ($username in $usernamesAttribute.getValues())
+                                        <option value="$encoder.encodeForHTML($username.getValue())">
+                                            $encoder.encodeForHTML($username.getValue())
+                                        </option>
+                                    #end
+                                #end
+                            </select>
+                            -->
+                        </div>
+
+                        <div class="form-element-wrapper">
+                            <button class="form-element form-button"
+                                    type="submit"
+                                    name="_eventId_impersonate">
+                                #springMessageText("idp.impersonate.impersonate",
+                                                   "Impersonate")
+                            </button>
+                        </div>
+
+                        <div class="form-element-wrapper">
+                            <button class="form-element form-button"
+                                    type="submit"
+                                    name="_eventId_proceed">
+                                #springMessageText("idp.impersonate.continue",
+                                                   "Continue Normally")
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap Italia footer -->
+        #parse("bi_footer.vm")
+
+        <!-- Bootstrap Italia bottom scripts -->
+        #parse("bi_bottom_scripts.vm")
+ 	</body>
+</html>

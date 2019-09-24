@@ -1,0 +1,75 @@
+##
+## Velocity Template for logout flow's concluding view-state (with propagation)
+##
+## Velocity context will contain the following properties
+## flowExecutionUrl - the form action location
+## flowRequestContext - the Spring Web Flow RequestContext
+## flowExecutionKey - the SWF execution key (this is built into the flowExecutionUrl)
+## profileRequestContext - root of context tree
+## logoutContext - context with SPSession details for logout operation
+## multiRPContext - context with RelyingPartyContexts and possibly SP UI information from the metadata
+## htmlEncoder - HTMLEncoder class
+## urlEncoder - urlEncoder class
+## codecUtil - CodecUtil class
+## request - HttpServletRequest
+## response - HttpServletResponse
+## environment - Spring Environment object for property resolution
+## custom - arbitrary object injected by deployer
+##
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <!-- Page details -->
+        <title>#springMessageText("idp.title", "Web Login Service")</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="$request.getContextPath()/bootstrap-italia/css/bootstrap-italia.min.css">
+        <link rel="stylesheet" href="$request.getContextPath()/bootstrap-italia/css/custom.css">
+        <!-- Extra CSS/Javascript -->
+    </head>
+
+    <body>
+        <!-- Bootstrap Italia header wrapper -->
+        #parse("bi_header_wrapper.vm")
+
+        <div class="main-body">
+            <div class="container">
+                <div class="my-5">
+                    <div class="content">
+                        <div class="column one">
+                            <p>#springMessageText("idp.logout.attempt",
+                                                  "Attempting to log out
+                                                  of the following services:")</p>
+                            #parse("logout/propagate.vm")
+                        </div>
+                        <div class="column two">
+                            <ul class="list list-help">
+                                <li class="list-help-item">
+                                    <a href="#springMessageText("idp.url.password.reset", "#")">
+                                        <span class="item-marker">&rsaquo;</span>
+                                        #springMessageText("idp.login.forgotPassword",
+                                                           "Forgot your password?")
+                                    </a>
+                                </li>
+                                <li class="list-help-item">
+                                    <a href="#springMessageText("idp.url.helpdesk", "#")">
+                                        <span class="item-marker">&rsaquo;</span>
+                                        #springMessageText("idp.login.needHelp", "Need Help?")
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap Italia footer -->
+        #parse("bi_footer.vm")
+
+        <!-- Bootstrap Italia bottom scripts -->
+        #parse("bi_bottom_scripts.vm")
+    </body>
+</html>

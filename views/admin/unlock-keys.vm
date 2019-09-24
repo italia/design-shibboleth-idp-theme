@@ -1,0 +1,164 @@
+##
+## Velocity Template for Attended Startup Unlock Utility
+##
+## Velocity context will contain the following properties:
+## flowRequestContext - the Spring Web Flow RequestContext
+## request - HttpServletRequest
+## response - HttpServletResponse
+## profileRequestContext
+## environment - Spring Environment object for property resolution
+## custom - arbitrary object injected by deployer
+##
+#set ($title = $springMacroRequestContext.getMessage("idp.title", "Web Login Service"))
+#set ($titleSuffix = $springMacroRequestContext.getMessage("idp.unlock-keys.title", "Attended Restart Key Unlock"))
+#set ($eventId = $profileRequestContext.getSubcontext("org.opensaml.profile.context.EventContext").getEvent())
+#set ($state = $flowRequestContext.getCurrentState().getId())
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <!-- Page details -->
+        <title>$title - $titleSuffix</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="$request.getContextPath()/bootstrap-italia/css/bootstrap-italia.min.css">
+        <link rel="stylesheet" href="$request.getContextPath()/bootstrap-italia/css/custom.css">
+        <!-- Extra CSS/Javascript -->
+    </head>
+
+    <body>
+        <!-- Bootstrap Italia header wrapper -->
+        #parse("bi_header_wrapper.vm")
+
+        <div class="main-body">
+            <div class="container">
+                <h2 class="mt-5 px-4 px-md-0">$title - $titleSuffix</h2>
+                <div class="row">
+                    <div class="pt-5 pb-2 py-md-5 px-4 px-md-0">
+                        <div class="content">
+                        #if ($state == "end")
+                            <strong>
+                                #springMessageText("idp.unlock-keys.complete",
+                                                   "The system is unlocked and
+                                                   ready for use.")
+                            </strong>
+                            <p>
+                                <a href="$request.getContextPath()/profile/SAML2/Unsolicited/SSO?providerId=https://sp.example.org/shibboleth">
+                                    Validation Link
+                                </a>
+                            </p>
+                        #else
+                            #if ($eventId == "InvalidMessage")
+                                <p class="form-element form-error">
+                                    #springMessageText("idp.unlock-keys.error",
+                                                       "Unlock failed; check log
+                                                       for specific message.")
+                                </p>
+                                <br/><br/>
+                            #end
+
+                            <form action="$flowExecutionUrl"
+                                  method="post"
+                                  class="needs-validation"
+                                  novalidate>
+
+                                <!--
+                                If you have multiple key strategies defined,
+                                you'll need multiple pairs of form fields for
+                                the passwords, labeled in the order they're
+                                fed into the shibboleth.unlock-keys.KeyStrategies
+                                bean. If you have none, remove the fields.
+                                -->
+
+                                <div class="form-group">
+                                    <label for="password">
+                                        #springMessageText("idp.unlock-keys.keystorePassword",
+                                                           "DataSealer Keystore Password")
+                                    </label>
+                                    <input class="form-control input-password"
+                                           id="password"
+                                           name="keystorePassword"
+                                           type="password">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password">
+                                        #springMessageText("idp.unlock-keys.keyPassword",
+                                                           "DataSealer Key Password")
+                                    </label>
+                                    <input class="form-control input-password"
+                                           id="password"
+                                           name="keyPassword"
+                                           type="password">
+                                </div>
+
+                                <!--
+                                If you have multiple private keys defined,
+                                you'll need a form field for each passwords,
+                                labeled in the order they're fed into the
+                                shibboleth.unlock-keys.Credentials/PrivateKeys beans.
+                                If you have none, remove the fields.
+                                -->
+
+                                <div class="form-group">
+                                    <label for="password">
+                                        #springMessageText("idp.unlock-keys.privateKeyPassword",
+                                                           "Private Key Password")
+                                    </label>
+                                    <input class="form-control
+                                           input-password"
+                                           id="password"
+                                           name="privateKeyPassword"
+                                           type="password">
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-success"
+                                            type="submit"
+                                            name="_eventId_proceed">
+                                        #springMessageText("idp.unlock-keys.unlock", "Unlock")
+                                    </button>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-danger"
+                                            type="submit"
+                                            name="_eventId_cancel">
+                                        #springMessageText("idp.unlock-keys.cancel", "Cancel")
+                                    </button>
+                              </div>
+
+                            </form>
+                        #end
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap Italia footer -->
+        #parse("bi_footer.vm")
+
+        <!-- Bootstrap Italia bottom scripts -->
+        #parse("bi_bottom_scripts.vm")
+
+        <!-- Bootstrap Italia validation script -->
+        <script>
+        (function() {
+          'use strict';
+          window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+              }, false);
+              form.classList.add('was-validated');
+            });
+          }, false);
+        })();
+        </script>
+ 	</body>
+</html>
