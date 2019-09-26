@@ -24,7 +24,7 @@ Considerando `idp.home` (solitamente /opt/shibboleth-idp) come path di installaz
 Gestione Shibboleth messages
 ----------------------------
 
-Le stringhe contenute in ```idp.home/system/messages/messages.properties```
+Le stringhe contenute in ```idp.home/messages/messages_XX.properties```
 possono essere personalizzate e incluse nel codice dei template.
 
 Esempio di modifica del logo (location: ```idp.home/views/bi_header_wrapper.vm```):
