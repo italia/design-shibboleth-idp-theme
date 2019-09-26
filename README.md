@@ -18,20 +18,20 @@ Installazione
 Considerando `idp.home` (solitamente /opt/shibboleth-idp) come path di installazione di *shibboleth-idp*, seguire i seguenti passaggi:
 
 - Copiare le cartelle ```edit-webapp``` (file statici) e ```views``` (template) in ```idp.home```;
-- Effettuare il rebuild del file WAR tramite linea di comando (```idp.home/bin/build.sh``` o ```idp.home\bin\build.bat```);
+- Effettuare il rebuild del file WAR tramite linea di comando (```idp.home/bin/build.sh``` o ```idp.home/bin/build.bat```);
 - Riavviare il web server (tomcat, jetty o altro servlet container).
 
 Gestione Shibboleth messages
 ----------------------------
 
-Le stringhe contenute in ```idp.home\system\messages\messages.properties```
+Le stringhe contenute in ```idp.home/system/messages/messages.properties```
 possono essere personalizzate e incluse nel codice dei template.
 
-Esempio di modifica del logo (location: ```idp.home\views\bi_header_wrapper.vm```):
+Esempio di modifica del logo (location: ```idp.home/views/bi_header_wrapper.vm```):
 
 ```
 <!--
-Use Shibboleth logo (in idp.home\edit-webapp\images)
+Use Shibboleth logo (in idp.home/edit-webapp/images)
 <img src="$request.getContextPath()#springMessage("idp.logo")"
      alt="#springMessageText("idp.logo.alt-text", "logo")">
 -->
