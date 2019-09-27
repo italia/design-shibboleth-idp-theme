@@ -21,14 +21,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        #parse("bi_head_css_js.vm")
         <!-- Page details -->
         <title>#springMessageText("idp.title", "Web Login Service")</title>
-        <!-- CSS -->
-        <link rel="stylesheet" href="$request.getContextPath()/bootstrap-italia/css/bootstrap-italia.min.css">
-        <link rel="stylesheet" href="$request.getContextPath()/bootstrap-italia/css/custom.css">
         <!-- Extra CSS/Javascript -->
         <style>
         #duo_iframe {
