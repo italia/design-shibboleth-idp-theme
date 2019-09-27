@@ -30,13 +30,13 @@ possono essere personalizzate e incluse nel codice dei template.
 Esempio di modifica del logo (location: ```idp.home/views/bi_header_wrapper.vm```):
 
 ```
-<!--
-Use Shibboleth logo (in idp.home/edit-webapp/images)
+<!-- Use Shibboleth logo -->
 <img src="$request.getContextPath()#springMessage("idp.logo")"
-     alt="#springMessageText("idp.logo.alt-text", "logo")">
--->
+     alt="#springMessageText("idp.logo.alt-text", "logo")"
+     width="100%">
+<!--
 <svg class="icon">
-    <use xlink:href="$request.getContextPath()/bootstrap-italia/svg/sprite.svg#it-expand"></use>
+    <use xlink:href="$request.getContextPath()/bootstrap-italia/svg/sprite.svg#it-code-circle"></use>
 </svg>
 ```
 
