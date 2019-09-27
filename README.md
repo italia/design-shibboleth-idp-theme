@@ -1,6 +1,6 @@
 ## design-shibboleth-idp-theme
 
-Bootstrap Italia template for Shibboleth IdP > 3.2
+Template Bootstrap Italia per Shibboleth IdP > 3.2
 --------------------------------------------------
 
 Template css/html per Shibboleth Identity Provider (IdP ver. > 3.2) costruito al di sopra di [Bootstrap Italia v1.3.7](https://italia.github.io/bootstrap-italia/).
@@ -40,7 +40,7 @@ Esempio di modifica del logo (location: ```idp.home/views/bi_header_wrapper.vm``
 </svg>
 ```
 
-Custom template
+Template custom
 ---------------
 
 E' possibile personalizzare il template di base adeguandolo allo stile della propria organizzazione.
