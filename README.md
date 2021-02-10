@@ -3,7 +3,7 @@
 Template Bootstrap Italia per Shibboleth IdP > 3.2
 --------------------------------------------------
 
-Template css/html per Shibboleth Identity Provider (IdP ver. > 3.2) costruito al di sopra di [Bootstrap Italia v1.3.7](https://italia.github.io/bootstrap-italia/).
+Template css/html per Shibboleth Identity Provider (IdP ver. > 3.2) costruito al di sopra di [Bootstrap Italia v1.4.3](https://italia.github.io/bootstrap-italia/).
 
 Questo progetto eredita tutte le funzionalità, componenti, griglie e classi di utilità definite nelle [Linee Guida di Design per i siti web della Pubblica Amministrazione](https://docs.italia.it/italia/designers-italia/design-linee-guida-docs/it/stabile/), mediante i pattern e i componenti definiti nello [UI Kit](https://designers.italia.it/kit/ui-kit/)
 di Designers Italia.
