@@ -1,0 +1,65 @@
+##
+## Velocity template to write to local storage.
+##
+## Velocity context will contain the following properties
+## flowExecutionUrl - the form action location
+## flowRequestContext - the Spring Web Flow RequestContext
+## flowExecutionKey - the SWF execution key (this is built into the flowExecutionUrl)
+## profileRequestContext - root of context tree
+## saveContext - context with details about the storage data to save
+## encoder - HTMLEncoder class
+## request - HttpServletRequest
+## response - HttpServletResponse
+## environment - Spring Environment object for property resolution
+#set ($title = $springMacroRequestContext.getMessage("idp.title", "Web Login Service"))
+#set ($titleSuffix = $springMacroRequestContext.getMessage("idp.client-storage-write.suffix", "Saving Session Information..."))
+##
+<!DOCTYPE html>
+<html>
+    <head>
+        #parse("bi_head_css_js.vm")
+        <!-- Page details -->
+        <title>$title - $titleSuffix</title>
+        <!-- Extra CSS/Javascript -->
+        <script>
+        <!--
+        #include( "client-storage/local-storage-write.js" )
+        // -->
+        </script>
+    </head>
+
+    <body onload="doSave()">
+        <!-- Bootstrap Italia header wrapper -->
+        #parse("bi_header_wrapper.vm")
+
+        <div class="main-body">
+            <div class="container">
+                <h2 class="mt-5 px-4 px-md-0">$title - $titleSuffix</h2>
+                <div class="row">
+                    <div class="pt-5 pb-2 py-md-5 px-4 px-md-0 bd-content">
+                        <div class="content">
+                            $springMacroRequestContext.getMessage("idp.client-storage-write.text",
+                                                                  "Saving login session information
+                                                                  to the browser...")
+                        </div>
+                        <noscript>
+                            <div class="content">
+                                $springMacroRequestContext.getMessage("idp.client-storage.no-js",
+                                                                      "Since your browser does not support JavaScript,
+                                                                      you must press the Continue button once to proceed.")
+                            </div>
+                        </noscript>
+                        #parse( "client-storage/write.vm" )
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap Italia footer -->
+        #parse("bi_footer.vm")
+
+        <!-- Bootstrap Italia bottom scripts -->
+        #parse("bi_bottom_scripts.vm")
+
+ 	</body>
+</html>
